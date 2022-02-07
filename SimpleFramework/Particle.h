@@ -3,28 +3,25 @@
 #include "glm.hpp"
 #include "LineRenderer.h"
 #include "Utilities.h"
-
+#include "PhysicsObject.h"
 typedef glm::vec2 Vector2;
 typedef glm::vec3 Vector3;
 
 
-struct Particle
+struct Particle : public PhysicsObject
 {
 private:
-	
-	
-	Vector2 pos = { GetRandomFloat(-10, 10), GetRandomFloat(-10, 10) };
-	Vector2 vel = { 0, 0 };
-	Vector2 acc = { 0, 0 };
+
+	Vector2 pos = {0, 0};
+
 	Vector3 colour = { 1, 0.2f, 0.2f };
 	float size = 0.2f;
 
-	LineRenderer* lines;
+	LineRenderer* lines = nullptr;
 
 
 public:
-	Particle() {}
-	Particle(LineRenderer* lines);
+	Particle();
 
 	//Particle(const Particle& other) {}
 	//Particle& operator=(const Particle& other) { return *this; }

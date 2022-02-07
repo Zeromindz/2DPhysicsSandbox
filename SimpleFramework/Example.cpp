@@ -1,14 +1,14 @@
 #include "Example.h"
 #include "Particle.h"
 
-Example::Example() : GameBase()
+Example::Example() 
 {
 	//Your initialisation code goes here!
 	agent = Agent::getInstance();
 
 	for (int i = 0; i < particleCount; i++)
 	{
-		particles[i] = Particle(&lines);
+		//particles[i] = Particle(&lines);
 	}
 
 	for (int i = 0; i < obstacleCount; i++)
