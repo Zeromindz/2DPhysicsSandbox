@@ -3,30 +3,24 @@
 #include "glm.hpp"
 #include "LineRenderer.h"
 #include "Utilities.h"
-#include "PhysicsObject.h"
+#include "RigidBody.h"
+
 typedef glm::vec2 Vector2;
 typedef glm::vec3 Vector3;
 
 
-struct Particle : public PhysicsObject
+struct Particle : public RigidBody
 {
 private:
-
-	Vector2 pos = {0, 0};
-
 	Vector3 colour = { 1, 0.2f, 0.2f };
+	Vector2 pos = {0, 0};
 	float size = 0.2f;
-
-	LineRenderer* lines = nullptr;
 
 
 public:
 	Particle();
+	Particle(Vector2 position, float radius);
 
-	//Particle(const Particle& other) {}
-	//Particle& operator=(const Particle& other) { return *this; }
-	//
-	//~Particle() {}
 
 	void Initialize();
 
@@ -35,9 +29,9 @@ public:
 
 	void OnCollision(Vector2 otherPos, Vector2 dir);
 
-	Vector2 GetCurrentPos() { return pos; }
+	Vector2 GetCurrentPos() const { return pos; }
 	
-	float GetSize() { return size; }
+	float GetSize() const { return size; }
 
 	bool collided = false;
 };

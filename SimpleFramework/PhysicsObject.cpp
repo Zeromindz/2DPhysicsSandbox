@@ -2,7 +2,9 @@
 
 void PhysicsObject::Update(float deltaTime)
 {
-	//Update particle position
-	pos += vel * deltaTime;
-	vel += acc * deltaTime;
+
+}
+
+void PhysicsObject::Render(LineRenderer& lines)
+{
 }

@@ -2,19 +2,26 @@
 
 Particle::Particle()
 {
-	Initialize();
+	SetPosition(Vector2(GetRandomFloat(-20, 20), GetRandomFloat(-20, 20)));
+	//SetAcceleration(Vector2(0, 0));
+	//SetVelocity(Vector2(GetRandomFloat(-3, 3), GetRandomFloat(-3, 3)));
 
-	vel.x = GetRandomFloat(-3, 3);
-	vel.y = GetRandomFloat(-3, 3);
+	colour = { 1, 0.2f, 0.2f };
+	size = 0.2f;
+
+}
+
+Particle::Particle(Vector2 position, float radius) : RigidBody(ShapeType::PARTICLE)
+{
+
 }
 
 void Particle::Update(float deltaTime)
 {
-	PhysicsObject::Update(deltaTime);
-	//Update particle position
-	//pos += vel * deltaTime;
-	//vel += acc * deltaTime;
-	//
+	//DEBUG
+	Vector2 x = { 0, 0 };
+	//x = GetVelocity();
+	
 	//// x reflection
 	//if (pos.x - size <= -15 || pos.x + size >= 15)
 	//{
@@ -25,6 +32,9 @@ void Particle::Update(float deltaTime)
 	//{
 	//	vel.y = -vel.y;
 	//}
+
+
+	PhysicsObject::Update(deltaTime);
 }
 
 void Particle::Render(LineRenderer& lines)
@@ -41,9 +51,5 @@ void Particle::OnCollision(Vector2 otherPos, Vector2 dir)
 
 void Particle::Initialize()
 {
-	pos = { GetRandomFloat(-20, 20), GetRandomFloat(-20, 20) };
-
-	acc = { 0, 0 };
-	colour = { 1, 0.2f, 0.2f };
-	size = 0.2f;
+	
 }

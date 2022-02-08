@@ -1,15 +1,21 @@
 #include "Plane.h"
 
-Plane::Plane(Vector2 norm, float dist)
+
+Plane::Plane(Vector2 norm, float dist) : PhysicsObject(ShapeType::PLANE)
 {
-	normal = norm;
-	offset = dist;
-	length = 10.0f;
+
+}
+
+Plane::~Plane()
+{
+	
 }
 
 void Plane::Update(float deltaTime)
 {
 
+
+	PhysicsObject::Update(deltaTime);
 }
 
 void Plane::Render(LineRenderer& lines)
@@ -20,7 +26,7 @@ void Plane::Render(LineRenderer& lines)
 	Vector2 start = centerPoint + (parallel * length);
 	Vector2 end = centerPoint - (parallel * length);
 
-	lines.DrawLineSegment(start, end, { 1.0f, 0.0f, 1.0f });
+	lines.DrawLineSegment(start, end, colour);
 
 
 }

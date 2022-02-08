@@ -6,29 +6,22 @@
 typedef glm::vec2 Vector2;
 typedef glm::vec3 Vector3;
 
-enum class ShapeType
-{
-	Shape,
-	Box,
-	Circle,
 
-	Count
-};
 
 class Shape
 {
-	virtual ShapeType GetType() const = 0;
+	//virtual ShapeType GetType() const = 0;
 };
 
-class Circle : public Shape
-{
-	ShapeType GetType() const override { return ShapeType::Circle; }
-};
+//class Circle : public Shape
+//{
+//	ShapeType GetType() const override { return ShapeType::Circle; }
+//};
 
-class Box : public Shape
-{
-	ShapeType GetType() const override { return ShapeType::Box; }
-};
+//class Box : public Shape
+//{
+//	ShapeType GetType() const override { return ShapeType::Box; }
+//};
 
 //CollisionData CollideTwoShapes(Shape* shapeA, Shape* shapeB)
 
@@ -36,17 +29,6 @@ class Box : public Shape
 
 // Collide two circles
 
-struct CollisionData
-{
-	Vector2 worldPos;
-	Vector2 normal;
-	float depth;
-
-	Shape* shapeA;
-	Shape* shapeB;
-
-	bool IsColliding() const { return depth > 0; }
-};
 
 /*
 {
