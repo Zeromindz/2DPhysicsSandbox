@@ -1,9 +1,16 @@
 #include "Plane.h"
 
 
-Plane::Plane(Vector2 norm, float dist) : PhysicsObject(ShapeType::PLANE)
+Plane::Plane() : RigidBody(ShapeType::PLANE)
 {
+	offset = 0;
+	normal = Vector2(0, 1);
+}
 
+Plane::Plane(Vector2 norm, float dist)
+{
+	normal = norm;
+	offset = dist;
 }
 
 Plane::~Plane()
@@ -11,11 +18,11 @@ Plane::~Plane()
 	
 }
 
-void Plane::Update(float deltaTime)
+void Plane::Update(Vector2 grav, float timeStep)
 {
 
 
-	PhysicsObject::Update(deltaTime);
+	//PhysicsObject::Update(deltaTime);
 }
 
 void Plane::Render(LineRenderer& lines)

@@ -2,7 +2,7 @@
 
 Particle::Particle()
 {
-	SetPosition(Vector2(GetRandomFloat(-20, 20), GetRandomFloat(-20, 20)));
+	//SetPosition(Vector2(GetRandomFloat(-20, 20), GetRandomFloat(-20, 20)));
 	//SetAcceleration(Vector2(0, 0));
 	//SetVelocity(Vector2(GetRandomFloat(-3, 3), GetRandomFloat(-3, 3)));
 
@@ -11,7 +11,7 @@ Particle::Particle()
 
 }
 
-Particle::Particle(Vector2 position, float radius) : RigidBody(ShapeType::PARTICLE)
+Particle::Particle(Vector2 position, float radius) //: RigidBody(ShapeType::PARTICLE)
 {
 
 }
@@ -34,7 +34,7 @@ void Particle::Update(float deltaTime)
 	//}
 
 
-	PhysicsObject::Update(deltaTime);
+	//PhysicsObject::Update(deltaTime);
 }
 
 void Particle::Render(LineRenderer& lines)

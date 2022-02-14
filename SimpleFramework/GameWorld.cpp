@@ -2,42 +2,15 @@
 
 GameWorld::GameWorld() : GameBase()
 {
-	circleTest = CircleCollider({ 2.0f, 2.0f }, { 1.0f, 0.0f }, 0, 0.5f, { 1, 1, 1 });
-	boxTest = AABB(-1.0f, 1.0f, -1.0f, 1.0f);
+	StartUp();
 
-	AddObject(circleTest);
-	AddObject(boxTest);
-
-	for (int i = 0; i < particleCount; i++)
-	{
-		particles.push_back(Particle());
-	}
 }
 
-void GameWorld::AddObject(PhysicsObject object)
-{
-	objects.push_back(object);
-}
-
-void GameWorld::RemoveObject(PhysicsObject object)
-{
-	
-}
 
 void GameWorld::Update()
 {
-	collisionData = CollideAABBToCircle(boxTest, circleTest, lines);
-	circleTest.SetCenter(cursorPos);
-
-	for (PhysicsObject object : objects)
-	{
-		object.Update(deltaTime);
-	}
-
-	for (Particle particle : particles)
-	{
-		particle.Update(deltaTime);
-	}
+	physicsSystem->Update(deltaTime);
+	//agent->Update(deltaTime);
 
 	//This call ensures that your mouse position and aspect ratio are maintained as correct.
 	GameBase::Update();
@@ -45,49 +18,42 @@ void GameWorld::Update()
 
 void GameWorld::Render()
 {
-
-	//circleTest.Render(lines);
-	//boxTest.Render(lines);
-	for (PhysicsObject object : objects)
-	{
-		object.Render(lines);
-	}
-
-	for (Particle particle : particles)
-	{
-		particle.Render(lines);
-	}
+	physicsSystem->Render(lines);
+	//agent->Render(lines);
 
 	//This call puts all the lines you've set up on screen - don't delete it or things won't work.
 	GameBase::Render();
 }
 
-/*
-void GameWorld::StepThroughObjects(float deltaTime)
+bool GameWorld::StartUp()
 {
-	CollisionData result;
 
-	for (int i = 0; i < objects.size(); i++)
-	{
-		for (int o = i + 1; o < objects.size(); o++)
-		{
-			if (objects[i].shapeID == RigidBody::ShapeType::CIRCLE)
-			{
-				
-			}
-			else if (objects[i].shapeID == RigidBody::ShapeType::PLANE)
-			{
+	// initialize the physics scene 
+	physicsSystem = new PhysicsSystem();
+	physicsSystem->SetGravity(Vector2(0, -1.0f));
+	physicsSystem->SetTimestep(0.01f);
 
-			}
-			else if (objects[i].shapeID == RigidBody::ShapeType::BOX)
-			{
+	CircleCollider* ball1 = new CircleCollider(Vector2(0.3f, 5.0f), Vector2(0, -5), 0.1f, 1.0f, { 1, 0, 0 });
+	CircleCollider* ball2 = new CircleCollider(Vector2(0.1f, 0.5f), Vector2(0, 0), 1.0f, 2.0f, { 0, 1, 0 });
+	Plane* plane1 = new Plane(Vector2(0, 1), -10);
+	Plane* plane2 = new Plane(Vector2(1, 0), 10);
+	Plane* plane3 = new Plane(Vector2(0, 1), 10);
+	Plane* plane4 = new Plane(Vector2(1, 0), -10);
 
-			}
-			else if(objects[i].shapeID == RigidBody::ShapeType::PARTICLE)
-			{
+	//agent = new Agent();
 
-			}
-		}
-	}
-	*/
+
+	physicsSystem->AddObject(ball1);
+	physicsSystem->AddObject(ball2);
+	physicsSystem->AddObject(plane1);
+	physicsSystem->AddObject(plane2);
+	physicsSystem->AddObject(plane3);
+	physicsSystem->AddObject(plane4);
+	//physicsSystem->AddObject(agent);
+
+	
+
+	return true;
+}
+
 

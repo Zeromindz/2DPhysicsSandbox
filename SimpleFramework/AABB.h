@@ -11,28 +11,29 @@ typedef glm::vec3 Vector3;
 
 class AABB : public RigidBody
 {
-private:
-	Vector3 colour = { 1.0f, 0, 0 };
-
-	float xMin = FLT_MAX;
-	float xMax = -FLT_MAX;
-	float yMin = FLT_MAX;
-	float yMax = -FLT_MAX;
 
 public:
 	
-	AABB() {}
-	AABB(float xMinInit, float xMaxInit, float yMinInit, float yMaxInit);
+	AABB();
+	AABB(Vector2 min, Vector2 max); // Bottom left corner = min, Top right = max
 
 	void Update(float deltaTime);
 	void Render(LineRenderer& lines);
 
 	bool CheckAABBCollision(AABB a, AABB b);
 
-	float XMin() const { return xMin; }
-	float XMax() const { return xMax; }
-	float YMin() const { return yMin; }
-	float YMax() const { return yMax; }
+	Vector2 GetLocalMin() { return Vector2(rb.GetPosition() - halfSize); }
+	Vector2 GetLocalMax() { return Vector2(rb.GetPosition() + halfSize); }
 
+	void SetSize(Vector2 s) { size = s; halfSize = { s.x / 2.0f, s.y / 2.0f }; }
+
+private:
+	Vector3 colour = { 1.0f, 0, 0 };
+
+
+	RigidBody rb;
+
+	Vector2 size;
+	Vector2 halfSize;
 };
 

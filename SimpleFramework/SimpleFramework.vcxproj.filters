@@ -52,9 +52,14 @@
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
-    <ClCompile Include="CollisionData.cpp" />
+    <ClCompile Include="CollisionManifold.cpp" />
     <ClCompile Include="CollisionFunctions.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="Box2D.cpp" />
+    <ClCompile Include="UtilityMath.cpp" />
+    <ClCompile Include="Ray2D.cpp" />
+    <ClCompile Include="RaycastResult.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLFWCallbacks.h">
@@ -126,9 +131,14 @@
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="CircleCollider.h" />
-    <ClInclude Include="CollisionData.h" />
+    <ClInclude Include="CollisionManifold.h" />
     <ClInclude Include="CollisionFunctions.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="PhysicsSystem.h" />
+    <ClInclude Include="Box2D.h" />
+    <ClInclude Include="UtilityMath.h" />
+    <ClInclude Include="Ray2D.h" />
+    <ClInclude Include="RaycastResult.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

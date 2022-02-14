@@ -4,7 +4,6 @@
 Example::Example() 
 {
 	//Your initialisation code goes here!
-	agent = Agent::getInstance();
 
 	for (int i = 0; i < particleCount; i++)
 	{

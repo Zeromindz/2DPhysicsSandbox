@@ -23,13 +23,16 @@ public:
 		COUNT
 	};
 
-	ShapeType shapeID;
 	PhysicsObject() {}
 	PhysicsObject(ShapeType shapeType) : shapeID(shapeType) {}
 	
-
-	virtual void Update(float deltaTime);
+	virtual void Update(Vector2 gravity, float timestep) = 0;
 	virtual void Render(LineRenderer& lines);
+	virtual void ResetPosition() {};
 
+	ShapeType GetShapeID() { return shapeID; }
+
+private:
+	ShapeType shapeID = ShapeType::SHAPE;
 };
 

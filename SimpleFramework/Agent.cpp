@@ -1,10 +1,9 @@
 #include "Agent.h"
 
-Agent::Agent(LineRenderer* renderer)
+Agent::Agent() : RigidBody(ShapeType::CIRCLE)
 {
 	Initialize();
 
-	lines = renderer;
 }
 
 void Agent::Update(float deltaTime)
@@ -39,13 +38,14 @@ void Agent::OnCollision(Vector2 otherPos)
 
 void Agent::Initialize()
 {
-	Vector2 pos = { 0, 0 };
-	Vector2 vel = { 0, 0 };
-	Vector2 acc = { 0, 0 };
 
-	Vector3 colour = { 0.3f, 0.3f, 1 };
+	pos = { 3, 3 };
+	vel = { 1, 1 };
+	acc = { 0, 0 };
 
-	float size = 0.6f;
+	colour = { 0.3f, 0.3f, 1 };
+
+	size = 0.6f;
 
 	commanded = false;
 }

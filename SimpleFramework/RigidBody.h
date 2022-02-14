@@ -1,38 +1,49 @@
 #pragma once
+
 #include "PhysicsObject.h"
+#include "Maths.h"
+#include "UtilityMath.h"
+#include "glm.hpp"
+typedef glm::vec2 Vector2;
+typedef glm::vec3 Vector3;
 
 class RigidBody : public PhysicsObject
 {
 public:
-	
-
-	RigidBody();
+	RigidBody() {}
 	RigidBody(ShapeType shapeID);
-	RigidBody(ShapeType shapeID, Vector2 position, Vector2 velocity, float orient, float mass);
-	~RigidBody() {}
+	RigidBody(ShapeType shapeID, Vector2 pos, Vector2 vel, float rot, float ma);
+	~RigidBody();
 
-	virtual void Update(float deltaTime);
-	virtual void Render(LineRenderer& lines);
+	virtual void Update(Vector2 gravity, float deltaTime);
 
 	void ApplyForce(Vector2 force);
+	void ApplyForceToObject(RigidBody* object2, Vector2 force);
 
-	Vector2 GetPosition() { return pos; }
-	void SetPosition(Vector2 newPos) { pos = newPos; }
-	Vector2 GetVelocity() { return vel; }
-	void SetVelocity(Vector2 newVel) { vel = newVel; }
-	Vector2 GetAcceleration() { return acc; }
-	void SetAcceleration(Vector2 newAcc) { acc = newAcc; }
+	void ResolveCollision(RigidBody* object2);
 
+	Vector2 GetPosition() { return position; }
+	float GetRotation() { return rotation; }
+	void SetTransform(Vector2 pos, float rot) { position = pos; rotation = rot; }
+	void SetTransform(Vector2 pos) { position = pos; }
+
+	Vector2 GetVelocity() { return linearVelocity; }
+	void SetVelocity(Vector2 vel) { linearVelocity = vel; }
 	float GetMass() { return mass; }
-	float GetOrientation() { return orientation; }
+	void SetMass(float ma) { mass = ma; }
+
 
 private:
-	Vector2 pos;
-	Vector2 vel;
-	Vector2 acc;
+	Vector2 position = { 0, 0 };
+	float rotation = 0;
+	float mass = 0;
 
-	float orientation;
-	float mass;
+	Vector2 linearVelocity;
+	Vector2 acceleration;
+	float angularVelocity = 0;
+	float linearDamping = 0;
+	float angularDamping = 0;
 
+	bool fixedRotation = false;
 };
 

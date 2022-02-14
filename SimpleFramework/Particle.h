@@ -9,7 +9,7 @@ typedef glm::vec2 Vector2;
 typedef glm::vec3 Vector3;
 
 
-struct Particle : public RigidBody
+struct Particle// : public RigidBody
 {
 private:
 	Vector3 colour = { 1, 0.2f, 0.2f };

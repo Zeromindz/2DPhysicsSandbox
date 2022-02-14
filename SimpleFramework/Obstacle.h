@@ -16,7 +16,7 @@ private:
 
 	Vector3 colour = { 1, 1, 1 };
 
-	LineRenderer* lines;
+	LineRenderer* lines = nullptr;
 
 public:
 
