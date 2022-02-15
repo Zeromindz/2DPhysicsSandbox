@@ -14,13 +14,13 @@ class PhysicsObject
 public:
 	enum class ShapeType
 	{
-		SHAPE,
-		CIRCLE,
-		PLANE,
-		BOX,
-		PARTICLE,
+		//SHAPE, // 0
+		PLANE, // 1
+		BOX,   // 2
+		CIRCLE,// 3
+		//PARTICLE,
 
-		COUNT
+		COUNT  // 4
 	};
 
 	PhysicsObject() {}
@@ -31,8 +31,12 @@ public:
 	virtual void ResetPosition() {};
 
 	ShapeType GetShapeID() { return shapeID; }
+	void SetShapeID(ShapeType type) { shapeID = type; }
 
 private:
-	ShapeType shapeID = ShapeType::SHAPE;
+	ShapeType shapeID = ShapeType::PLANE;
 };
 
+				//	PhysicsSystem::PlaneToAABB, PhysicsSystem::PlaneToCircle, PhysicsSystem::AABBToPlane, 
+				//  PhysicsSystem::AABBToAABB,  PhysicsSystem::AABBToCircle,  PhysicsSystem::CircleToPlane,
+				//  PhysicsSystem::CircleToBox, PhysicsSystem::CircleToCircle

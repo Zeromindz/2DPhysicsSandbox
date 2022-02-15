@@ -16,24 +16,26 @@ public:
 	
 	AABB();
 	AABB(Vector2 min, Vector2 max); // Bottom left corner = min, Top right = max
+	AABB(Vector2 pos, Vector2 vel, Vector2 size, float mass); // Bottom left corner = min, Top right = max
 
-	void Update(float deltaTime);
 	void Render(LineRenderer& lines);
 
-	bool CheckAABBCollision(AABB a, AABB b);
+	Vector2 GetLocalMin() { return Vector2(GetPosition() - halfSize); }
+	Vector2 GetLocalMax() { return Vector2(GetPosition() + halfSize); }
 
-	Vector2 GetLocalMin() { return Vector2(rb.GetPosition() - halfSize); }
-	Vector2 GetLocalMax() { return Vector2(rb.GetPosition() + halfSize); }
+	Vector2 GetSize() { return size; }
+	Vector2 GetHalfSize() { return halfSize; }
 
-	void SetSize(Vector2 s) { size = s; halfSize = { s.x / 2.0f, s.y / 2.0f }; }
+	void SetSize(Vector2 newSize);
+
+
 
 private:
-	Vector3 colour = { 1.0f, 0, 0 };
-
-
-	RigidBody rb;
-
 	Vector2 size;
 	Vector2 halfSize;
+
+	Vector3 colour = { 1.0f, 0.2f, 0.2f };
+
+	RigidBody rb;
 };
 

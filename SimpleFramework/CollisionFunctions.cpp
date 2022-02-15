@@ -1,5 +1,5 @@
 #include "CollisionFunctions.h"
-
+/*
 bool CollisionDetection2D::CircleToCircle(PhysicsObject* obj1, PhysicsObject* obj2)
 {
 	// Attempt to cast objects as circles

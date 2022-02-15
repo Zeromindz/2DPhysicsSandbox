@@ -12,11 +12,7 @@ CollisionManifold::CollisionManifold(Vector2 norm, float dep)
 	depth = dep;
 }
 
-//void CollisionManifold::Render(LineRenderer& lines)
-//{
-//	if (depth > 0)
-//	{
-//		lines.DrawLineSegment(worldPos, worldPos + normal * depth);
-//
-//	}
-//}
+void CollisionManifold::Render(LineRenderer& lines)
+{
+	
+}

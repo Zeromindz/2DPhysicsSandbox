@@ -5,11 +5,56 @@
 #include "CollisionManifold.h"
 #include "CircleCollider.h"
 #include "Plane.h"
-
+#include "AABB.h"
 #include "Agent.h"
-//#include "CollisionFunctions.h"
 
 #include <vector>
+
+
+class PhysicsSystem
+{
+public:
+	PhysicsSystem();
+	~PhysicsSystem();
+
+	void Update(float deltaTime);
+	void Render(LineRenderer& lines);
+	
+	void AddObject(PhysicsObject* object);
+	void RemoveObject(PhysicsObject* object);
+
+	float GetTimestep() { return timeStep; }
+	void SetTimestep(float time) { timeStep = time; }
+	Vector2 GetGravity() { return gravity; }
+	void SetGravity(Vector2 grav) { gravity = grav; }
+
+
+	float GetTotalEnergy();
+
+	void CheckForCollision();
+	void ApplyContactForces(RigidBody* body1, RigidBody* body2, Vector2 norm, float pen);
+
+	static bool PlaneToPlane(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+	static bool PlaneToAABB(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+	static bool PlaneToCircle(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+	static bool AABBToPlane(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+	static bool AABBToAABB(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+	static bool AABBToCircle(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+	static bool CircleToPlane(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+	static bool CircleToBox(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+	static bool CircleToCircle(PhysicsObject* obj1, PhysicsObject* obj2, CollisionManifold& collsionData);
+
+
+private:
+	std::vector<PhysicsObject*> objects;
+	std::vector<RigidBody*> bodies1;
+	std::vector<RigidBody*> bodies2;
+	std::vector<CollisionManifold> collisions;
+
+	Vector2 gravity; 
+	float timeStep;
+};
+
 
 class Line2D
 {
@@ -30,51 +75,3 @@ public:
 		return sqrt(glm::length(Vector2(to - from)));
 	}
 };
-
-
-class PhysicsSystem
-{
-public:
-	PhysicsSystem();
-	~PhysicsSystem();
-
-	void Update(float deltaTime);
-	void Render(LineRenderer& lines);
-	
-	void AddObject(RigidBody* object);
-	void RemoveObject(RigidBody* object);
-
-	float GetTimestep() { return timeStep; }
-	void SetTimestep(float time) { timeStep = time; }
-	Vector2 GetGravity() { return gravity; }
-	void SetGravity(Vector2 grav) { gravity = grav; }
-
-	void CheckForCollision();
-	
-	static bool CircleToCircle(PhysicsObject* obj1, PhysicsObject* obj2);
-	static bool CircleToPlane(PhysicsObject* obj1, PhysicsObject* obj2);
-	static bool PlaneToCircle(PhysicsObject* obj1, PhysicsObject* obj2);
-
-
-	static bool PointOnLine(PhysicsObject* point, PhysicsObject* line) { return false; }
-	static bool PointInCircle(PhysicsObject* point, PhysicsObject* circle) { return false; }
-	static bool PointInAABB(PhysicsObject* point, PhysicsObject* box) { return false; }
-	static bool PointInBox2D(PhysicsObject* point, PhysicsObject* box) { return false; }
-
-	static bool Line2Circle(PhysicsObject* line, PhysicsObject* circle);
-	static bool Circle2Line(PhysicsObject* circle, PhysicsObject* line);
-
-	static bool LineAndAABB(PhysicsObject* line, PhysicsObject* box) { return false; }
-	static bool LineAndBox2D(PhysicsObject* line, PhysicsObject* box) { return false; }
-
-
-private:
-	std::vector<RigidBody*> objects;
-	std::vector<RigidBody*> bodies1;
-	std::vector<RigidBody*> bodies2;
-	std::vector<CollisionManifold*> collisions;
-
-	Vector2 gravity; 
-	float timeStep;
-};
-

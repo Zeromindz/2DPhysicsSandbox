@@ -1,9 +1,9 @@
 #include "RigidBody.h"
 
 
-RigidBody::RigidBody(ShapeType shapeID) : RigidBody(ShapeType::SHAPE, { 0, 0 }, { 0, 0}, 0, 0)
+RigidBody::RigidBody(ShapeType shapeID)
 {
-
+	
 }
 
 RigidBody::RigidBody(ShapeType shapeID, Vector2 pos, Vector2 vel, float rot, float ma)
@@ -13,6 +13,8 @@ RigidBody::RigidBody(ShapeType shapeID, Vector2 pos, Vector2 vel, float rot, flo
 	linearVelocity = vel;
 	mass = ma;
 	linearVelocity = vel;
+
+	
 }
 
 RigidBody::~RigidBody()
@@ -22,8 +24,10 @@ RigidBody::~RigidBody()
 
 void RigidBody::Update(Vector2 gravity, float deltaTime)
 {
-	position += linearVelocity * deltaTime;
-	ApplyForce(gravity * mass * deltaTime);
+	position += linearVelocity * deltaTime; // Update pos based on vel
+	ApplyForce(gravity * mass * deltaTime); // Apply gravity force
+
+	currentGravity = gravity; // store gravity
 }
 
 void RigidBody::ApplyForce(Vector2 force)
@@ -53,6 +57,33 @@ void RigidBody::ResolveCollision(RigidBody* object2)
 	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), normal) / ((1 / mass) + (1 / object2->GetMass()));
 
 	Vector2 force = normal * j;
+
+	float kePre = GetKineticEnergy() + object2->GetKineticEnergy();
+
 	ApplyForceToObject(object2, -force);
+
+	float kePost = GetKineticEnergy() + object2->GetKineticEnergy();
+
+	float deltaKE = kePost - kePre;
+	if (deltaKE > kePost * 0.01f)
+	{
+		// kinetic discrepancy
+	}
+}
+
+
+float RigidBody::GetKineticEnergy()
+{
+	// Ek = ½ mv2
+	
+	float kEnergy;
+	kEnergy = glm::length((GetMass() * (GetVelocity() * GetVelocity())) * 0.5f);
+	return kEnergy;
+	
+}
+
+float RigidBody::GetPotentialEnergy()
+{
+	return - GetMass() * glm::dot(currentGravity, GetPosition());
 }
 

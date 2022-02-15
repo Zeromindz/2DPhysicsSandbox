@@ -1,8 +1,8 @@
 #pragma once
-#include "glm.hpp"
 #include "LineRenderer.h"
 #include "Utilities.h"
 
+#include "glm.hpp"
 typedef glm::vec2 Vector2;
 typedef glm::vec3 Vector3;
 

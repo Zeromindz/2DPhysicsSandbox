@@ -4,6 +4,7 @@
 #include "Maths.h"
 #include "UtilityMath.h"
 #include "glm.hpp"
+
 typedef glm::vec2 Vector2;
 typedef glm::vec3 Vector3;
 
@@ -32,6 +33,8 @@ public:
 	float GetMass() { return mass; }
 	void SetMass(float ma) { mass = ma; }
 
+	float GetKineticEnergy();
+	float GetPotentialEnergy();
 
 private:
 	Vector2 position = { 0, 0 };
@@ -40,10 +43,13 @@ private:
 
 	Vector2 linearVelocity;
 	Vector2 acceleration;
-	float angularVelocity = 0;
 	float linearDamping = 0;
+	
+	float angularVelocity = 0;
 	float angularDamping = 0;
-
 	bool fixedRotation = false;
+
+	Vector2 currentGravity = { 0, 0 };
+
 };
 
